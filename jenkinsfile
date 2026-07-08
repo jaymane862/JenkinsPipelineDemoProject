@@ -1,38 +1,15 @@
-pipeline{
-agent any
-tools {
-        jdk 'JDK21'
-        maven 'Maven3'
-    }
+pipeline {
+    agent any
 
-stages 
-{
-stage('Build') 
-{
-steps{
-echo "Building the Code.........."
-bat "mvn clean"
-}
-}
-stage('Test') 
-{
-steps{
-echo "Testing the Code.........."
-bat "mvn test"
-}
-}
-stage('Compile') 
-{
-steps{
-echo "Compiling the Project.........."
-bat "mvn compile"
-}
-}
-stage('Deploy') 
-{
-steps{
-echo "Deploying the Project.........."
-}
-}
-}
+    stages {
+        stage('Environment Check') {
+            steps {
+                bat 'echo JAVA_HOME=%JAVA_HOME%'
+                bat 'where java'
+                bat 'java -version'
+                bat 'where mvn'
+                bat 'mvn -version'
+            }
+        }
+    }
 }
